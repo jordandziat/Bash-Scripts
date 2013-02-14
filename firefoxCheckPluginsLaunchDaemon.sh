@@ -70,8 +70,8 @@ done
 
 populateProfilePathsArray ( ) {
 counter=0;
-(/usr/libexec/PlistBuddy -c "Delete :WatchPaths " /Library/LaunchAgents/org.vermilionschools.firefoxWatchFiles.plist)
-(/usr/libexec/PlistBuddy -c "Add :WatchPaths Array" /Library/LaunchAgents/org.vermilionschools.firefoxWatchFiles.plist)
+(/usr/libexec/PlistBuddy -c "Delete :WatchPaths " /Library/LaunchDaemons/org.vermilionschools.firefoxWatchFiles.plist)
+(/usr/libexec/PlistBuddy -c "Add :WatchPaths Array" /Library/LaunchDaemons/org.vermilionschools.firefoxWatchFiles.plist)
 for userFolderName in $(find $startingPath -type d -maxdepth 1 -exec basename {} \;)
 do
 	if [ -e $startingPath/$userFolderName/Library/Application\ Support/Firefox/Profiles ]
@@ -84,7 +84,7 @@ do
     				fullPath=$startingPath/$userFolderName/Library/Application\ Support/Firefox/Profiles/$firefoxProfile
     				arrayProfilePath[$counter]="${fullPath}"
     				#echo "${fullPath}${fileNameToParse}"
-    				(/usr/libexec/PlistBuddy -c "Add :WatchPaths: String ${fullPath}${fileNameToParse}" /Library/LaunchAgents/org.vermilionschools.firefoxWatchFiles.plist);
+    				(/usr/libexec/PlistBuddy -c "Add :WatchPaths: String ${fullPath}" /Library/LaunchDaemons/org.vermilionschools.firefoxWatchFiles.plist);
     				echo ${arrayProfilePath[$counter]}
     				((counter++))
     			fi
